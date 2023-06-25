@@ -1,7 +1,11 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const HTTPResponse = require("../response/HTTPResponse");
-const { serverErrorResponse } = require("../helpers/helpers");
+const {
+  saveHobbies,
+  generateToken,
+  serverErrorResponse,
+} = require("../helpers/helpers");
 const {
   signupValidation,
   loginValidation,
@@ -16,8 +20,16 @@ const {
 
 exports.registerUser = async (req, res) => {
   try {
-    const { firstName, lastName, email, gender, hobbies, userType, password } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      gender,
+      hobbies,
+      location,
+      userType,
+      password,
+    } = req.body;
 
     /**
      * ! Signup Validation
@@ -56,7 +68,8 @@ exports.registerUser = async (req, res) => {
       email,
       password: hashedPassword,
       gender,
-      hobbies,
+      location,
+      hobbies: saveHobbies(hobbies),
       userType,
     });
 
@@ -82,7 +95,7 @@ exports.registerUser = async (req, res) => {
  * ! For user login
  */
 
-exports.loginUser = async (req, user) => {
+exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -110,7 +123,6 @@ exports.loginUser = async (req, user) => {
       );
 
     const checkValidPassword = bcrypt.compareSync(password, user.password);
-    console.log("VALID PW", checkValidPassword);
 
     if (!checkValidPassword)
       return HTTPResponse.apiResponse(
@@ -119,10 +131,13 @@ exports.loginUser = async (req, user) => {
         "Invalid Password. Please try again"
       );
 
+    const accessToken = generateToken(user);
+
     return HTTPResponse.apiResponse(
       res,
       HTTPResponse.HTTP_OK,
-      "Logged in successfully"
+      "Logged in successfully",
+      { accessToken }
     );
   } catch (error) {
     serverErrorResponse(res, error);

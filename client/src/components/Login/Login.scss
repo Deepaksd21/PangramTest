@@ -15,11 +15,11 @@
   h3 {
     text-align: center;
     margin-bottom: 40px;
-    color: #2468a0;
+    color: #98bcd8;
   }
 
   .form-group {
-    width: 400px !important;
+    width: 350px;
     margin-bottom: 15px;
     label {
       display: block;
@@ -27,8 +27,8 @@
       color: #000000;
     }
     input {
-      width: 97%;
-      height: 20px;
+      width: 97% !important;
+      height: 14px;
       padding: 8px;
       border-radius: 4px;
       border: 1px solid #ccc;

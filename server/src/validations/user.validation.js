@@ -9,6 +9,7 @@ exports.signupValidation = Joi.object({
   lastName: Joi.string().trim(true).required(),
   email: Joi.string().email().trim(true).required(),
   hobbies: Joi.string().trim(true).required(),
+  location: Joi.string().trim(true).required(),
   password: Joi.string().min(8).trim(true).required(),
   confirmPassword: Joi.string().valid(Joi.ref("password")).required().messages({
     "any.only": "Passwords do not match",
