@@ -137,7 +137,7 @@ exports.loginUser = async (req, res) => {
       res,
       HTTPResponse.HTTP_OK,
       "Logged in successfully",
-      { accessToken }
+      { userType: user?.userType, accessToken }
     );
   } catch (error) {
     serverErrorResponse(res, error);

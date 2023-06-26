@@ -189,9 +189,9 @@ const Register = () => {
           </div>
         </div>
         <button type="submit">Sign Up</button>
-        {/* <a href="/login">
+        <a href="/login">
           <h3>Already registered</h3>
-        </a> */}
+        </a>
       </form>
       <ToastContainer />
     </div>

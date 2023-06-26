@@ -38,4 +38,12 @@ router.get(
   managerController.employeeSalesAndNameDesc
 );
 
+/**
+ * ! Department routes
+ */
+
+router.get("/all-departments", managerController.getAllDepartments);
+
+router.post("/add-department", managerController.addNewDepartment);
+
 module.exports = router;

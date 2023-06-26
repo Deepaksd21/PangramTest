@@ -19,8 +19,15 @@ const Login = () => {
     axios
       .post(baseURL + `/login`, payload)
       .then(async (res) => {
-        await navigate("/employee");
-        localStorage.setItem("EmployeeToken", res.data.data.accessToken);
+        if (res.data.data.userType === "Employee") {
+          await navigate("/");
+          localStorage.setItem("EmployeeToken", res.data.data.accessToken);
+        }
+        if (res.data.data.userType === "Manager") {
+          console.log("Here");
+          await navigate("/manager");
+          localStorage.setItem("ManagerToken", res.data.data.accessToken);
+        }
         notifySuccess("User logged in successfully");
       })
       .catch((error) => {
@@ -49,6 +56,9 @@ const Login = () => {
           />
         </div>
         <button type="submit">Sign in</button>
+        <a href="/register">
+          <h3>Register a new account</h3>
+        </a>
       </form>
       <ToastContainer />
     </div>

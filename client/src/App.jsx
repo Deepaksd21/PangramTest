@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import EmployeeCard from "./components/EmployeeCard/Employee";
+import Manager from "./pages/Manager/Manager";
 import { isLoggedIn } from "./utils/authService";
 
 function App() {
@@ -18,8 +19,9 @@ function App() {
           {!isLoggedUser ? (
             <Route path="*" element={<Navigate to="/login" />} />
           ) : (
-            <Route path="/employee" element={<EmployeeCard />} />
+            <Route path="/" element={<EmployeeCard />} />
           )}
+          <Route path="/manager" element={<Manager />} />
         </Routes>
       </BrowserRouter>
     </div>
