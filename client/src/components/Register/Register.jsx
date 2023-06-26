@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import baseURL from "../../utils/config";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -33,7 +33,6 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    validateSignupForm;
 
     const validationErrors = validateSignupForm(userDetails);
     setErrors(validationErrors);

@@ -46,3 +46,26 @@ export function validateSignupForm(data) {
 
   return validationErrors;
 }
+
+export function validateLoginForm(data) {
+  const validationErrors = {};
+
+  if (!data.email) {
+    validationErrors.email = "Email is required";
+  } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+    validationErrors.email = "Invalid email format";
+  }
+
+  if (!data.password) {
+    validationErrors.password = "Password is required";
+  } else if (
+    !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/.test(
+      data.password
+    )
+  ) {
+    validationErrors.password =
+      "Password must be 8-20 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character";
+  }
+
+  return validationErrors;
+}
