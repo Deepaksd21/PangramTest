@@ -2,9 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "./Employee.scss";
 import baseURL from "../../utils/config";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { notifySuccess, notifyError } from "../../utils/toast";
+import { notifyError } from "../../utils/toast";
 
 const EmployeeCard = () => {
   const [employee, setEmployee] = useState({});

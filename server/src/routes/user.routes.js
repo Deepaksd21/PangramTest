@@ -46,4 +46,8 @@ router.get("/all-departments", managerController.getAllDepartments);
 
 router.post("/add-department", managerController.addNewDepartment);
 
+router.put("/edit-department", managerController.editDepartment);
+
+router.delete("/delete-department", managerController.deleteDepartment);
+
 module.exports = router;

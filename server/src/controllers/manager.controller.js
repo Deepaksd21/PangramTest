@@ -5,7 +5,7 @@ const { serverErrorResponse } = require("../helpers/helpers");
 
 /**
  * * ● Make a query that retrieves an employee/s who are in IT department and location
- * *   name is starting from A (location may be aurangabad, ahmedabad, etc).
+ * * ● Make a query that retrieves name is starting from A (location may be aurangabad, ahmedabad, etc).
  */
 
 exports.employeeITAndLocationA = async (req, res) => {
@@ -104,6 +104,72 @@ exports.addNewDepartment = async (req, res) => {
         res,
         HTTPResponse.HTTP_BAD_REQUEST,
         "Department not added"
+      );
+    }
+  } catch (error) {
+    serverErrorResponse(res, error);
+  }
+};
+
+/**
+ * ! To update a department
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+
+exports.editDepartment = async (req, res) => {
+  try {
+    const { departmentId, name } = req.body;
+
+    const department = await Department.findOne({ _id: departmentId });
+    if (!department)
+      return HTTPResponse.apiResponse(
+        res,
+        HTTPResponse.HTTP_NOT_FOUND,
+        "Department not found"
+      );
+
+    department.name = name ? name : department.name;
+
+    await department.save();
+
+    return HTTPResponse.apiResponse(
+      res,
+      HTTPResponse.HTTP_OK,
+      "Department updated successfully"
+    );
+  } catch (error) {
+    serverErrorResponse(res, error);
+  }
+};
+
+/**
+ * ! To delete a department
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+
+exports.deleteDepartment = async (req, res) => {
+  try {
+    const { departmentId } = req.query;
+
+    const department = await Department.deleteOne({
+      _id: departmentId,
+    });
+
+    if (department.deletedCount) {
+      return HTTPResponse.apiResponse(
+        res,
+        HTTPResponse.HTTP_OK,
+        "Department deleted successfully"
+      );
+    } else {
+      return HTTPResponse.apiResponse(
+        res,
+        HTTPResponse.HTTP_BAD_REQUEST,
+        "Department not deleted"
       );
     }
   } catch (error) {
